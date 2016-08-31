@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
+import Movie from './Movie';
 
 export default class MovieList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: ''
-    };
+
+  _renderMovies(movies) {
+    return movies.map((movie,i) => {
+      return <Movie key={i} movie={movie}/>
+    })
   }
 
   render() {
+    const Movies = this._renderMovies(this.props.movies);
     return (
-      <h1>MOVIE LIST</h1>
+      <div className="list-group MovieList">
+        {Movies}
+      </div>
     );
   }
 }
