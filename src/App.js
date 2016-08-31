@@ -8,9 +8,26 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: {},
-      view: false
+      movies: [],
+      view: false,
+      filter: {
+        rating: null,
+        genere: null,
+        actors: [],
+        year: null
+      }
     };
+  }
+
+  componentWillMount() {
+    let movies = [{
+      year: 1999,
+      title: "Matrix",
+      genre: "science fiction",
+      actors: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss", "Hugo Weaving"],
+      rating: 8.7}]
+
+    this.setState({movies})
   }
 
   _toggleView() {
@@ -18,7 +35,18 @@ export default class App extends Component {
     console.log(this.state.view)
   }
 
+  _filterMovies(movies) {
+    const filter = this.state.filter;
+    const mapped = [];
+    for(const title in movies) {
+      mapped.push(movies[title]);
+    }
+    return movies
+  }
+
+
   render() {
+    const movies = this._filterMovies(this.state.movies);
     return (
       <div>
         <NavBar toggleView={this._toggleView.bind(this)}/>
@@ -26,7 +54,7 @@ export default class App extends Component {
           <div className="row">
             <div className="col-md-offset-2 col-md-8">
             <SearchBar/>
-            {this.state.view ? <AddMovie movies={this.state.movies}/> : <MovieList movies={this.state.movies}/>}
+            {this.state.view ? <AddMovie movies={movies}/> : <MovieList movies={movies}/>}
             </div>
           </div>
         </div>
