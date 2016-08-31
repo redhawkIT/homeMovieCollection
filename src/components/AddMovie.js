@@ -16,13 +16,35 @@ export default class AddMovie extends Component {
   _handleSubmit(event) {
     event.preventDefault();
     if(this._isValidData(this.state)) {
-      this._addMovie(this.state.term);
+      this.props.addMovie(this.state);
     }
+    this.setState({
+      title: '',
+      rating: null,
+      genre: '',
+      actors: '',
+      year: null,
+      errorMsg: null
+    });
   }
 
   _isValidData(state) {
     const {title, rating, genre, actors, year} = state;
-    console.log(title, rating, genre, actors, year)
+
+    if(!this.props.movies.length) return true;
+    const isTitle = this.props.movies.filter(movie => {
+      return movie.title.toLowerCase() == title.toLowerCase();
+    });
+
+    if(title.length <= 0) {
+      this.setState({errorMsg: "Must enter a title"});
+      return false;
+    }
+    if(isTitle.length) {
+      this.setState({errorMsg: "That movie already exists!"});
+      return false;
+    }
+    return true;
   }
 
   _onTitleChange(title) {
@@ -71,7 +93,7 @@ export default class AddMovie extends Component {
           <div className="col-sm-10">
             <input
               className="form-control"
-              placeholder="Enter Rating 1-10"
+              placeholder="Enter Rating"
               value={this.state.rating}
               onChange={event => this._onRatingChange(event.target.value)}
             />
