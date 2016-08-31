@@ -1,0 +1,10 @@
+body {
+  padding-top: 70px;
+}
+#Movie-Title {
+  display: inline-block;
+}
+#Movie-Rating {
+  display: inline-block;
+  float: right;
+}
