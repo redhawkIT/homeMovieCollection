@@ -17,13 +17,14 @@ export default class AddMovie extends Component {
     event.preventDefault();
     if(this._isValidData(this.state)) {
       this.props.addMovie(this.state);
+      this.props.toggleView()
     }
     this.setState({
       title: '',
-      rating: null,
-      genre: '',
-      actors: '',
-      year: null,
+      rating: "N/A",
+      genre: "N/A",
+      actors: "N/A",
+      year: "N/A",
       errorMsg: null
     });
   }
