@@ -22,8 +22,14 @@ export default class App extends Component {
     return (
       <div>
         <NavBar toggleView={this._toggleView.bind(this)}/>
-        <SearchBar/>
-        {this.state.view ? <AddMovie/> : <MovieList/>}
+        <div className="container">
+          <div className="row">
+            <div className="col-md-offset-2 col-md-8">
+            <SearchBar/>
+            {this.state.view ? <AddMovie movies={this.state.movies}/> : <MovieList movies={this.state.movies}/>}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
