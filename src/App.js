@@ -32,7 +32,6 @@ export default class App extends Component {
 
   _toggleView() {
     this.setState({view: !this.state.view})
-    console.log(this.state.view)
   }
 
   _filterMovies(movies) {
@@ -47,15 +46,19 @@ export default class App extends Component {
   _displayView(view){
     const movies = this.state.movies;
     if(view) {
-      return <AddMovie movies={movies} addMovie={this._addMovie.bind(this)}/>;
+      return <AddMovie movies={movies} addMovie={this._addMovie.bind(this)} toggleView={this._toggleView.bind(this)}/>;
     } else {
-      return <MovieList movies={movies}/>;
+      return (
+        <div>
+          <SearchBar/>
+          <MovieList movies={movies}/>;
+        </div>
+      );
     }
   }
 
   _addMovie(movie) {
     this.setState({movies: this.state.movies.concat([movie])});
-    console.log(this.state.movies)
   }
 
   render() {
@@ -63,10 +66,9 @@ export default class App extends Component {
     return (
       <div>
         <NavBar toggleView={this._toggleView.bind(this)}/>
-        <div className="container">
+        <div className="container App">
           <div className="row">
             <div className="col-md-offset-2 col-md-8">
-            <SearchBar/>
             {this._displayView(this.state.view)}
             </div>
           </div>
