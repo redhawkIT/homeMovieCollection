@@ -44,6 +44,19 @@ export default class App extends Component {
     return movies
   }
 
+  _displayView(view){
+    const movies = this.state.movies;
+    if(view) {
+      return <AddMovie movies={movies} addMovie={this._addMovie.bind(this)}/>;
+    } else {
+      return <MovieList movies={movies}/>;
+    }
+  }
+
+  _addMovie(movie) {
+    this.setState({movies: this.state.movies.concat([movie])});
+    console.log(this.state.movies)
+  }
 
   render() {
     const movies = this._filterMovies(this.state.movies);
@@ -54,7 +67,7 @@ export default class App extends Component {
           <div className="row">
             <div className="col-md-offset-2 col-md-8">
             <SearchBar/>
-            {this.state.view ? <AddMovie movies={movies}/> : <MovieList movies={movies}/>}
+            {this._displayView(this.state.view)}
             </div>
           </div>
         </div>
