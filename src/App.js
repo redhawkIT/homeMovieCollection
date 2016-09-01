@@ -30,24 +30,55 @@ export default class App extends Component {
     this.setState({view: !this.state.view});
   }
 
-  _filter(filter) {
-    console.log("called")
-
+  _filter(filter, term) {
     const movies = this.state.movies;
-    const {title, rating, genre, actors, years} = filter;
-    console.log("title", title)
-    if(title && title.length) {
+    if(filter == "Title" && term.length) this._filterByTitle(term, movies);
+    if(filter == "Year" && term.length) this._filterByYear(term, movies);
+    if(filter == "Rating" && term.length) this._filterByRating(term, movies);
+    if(filter == "Genre" && term.length) this._filterByGenre(term, movies);
+    if(filter == "Actors" && term.length) this._filterByActors(term, movies);
+  }
 
-      this.setState({search: true})
-    }
-    const filterdMovies = this._filterByTitle(title, movies);
-    this.setState({filterdMovies})
+  _filterByActors(name, movies) {
+    this.setState({search: true})
+    const filterdMovies = movies.filter(movie => {
+      return movie.actors.filter(actor => {
+        return  actor.includes(name);
+      })
+    });
+    this.setState({filterdMovies});
+  }
+
+  _filterByGenre(genre, movies) {
+    this.setState({search: true})
+    const filterdMovies = movies.filter(movie => {
+      return movie.genre.includes(genre);
+    });
+    this.setState({filterdMovies});
+  }
+
+  _filterByRating(rating, movies) {
+    this.setState({search: true})
+    const filterdMovies = movies.filter(movie => {
+      return movie.rating = rating;
+    });
+    this.setState({filterdMovies});
+  }
+
+  _filterByYear(year, movies) {
+    this.setState({search: true})
+    const filterdMovies = movies.filter(movie => {
+      return movie.year.toString().includes(year.toString());
+    });
+    this.setState({filterdMovies});
   }
 
   _filterByTitle(title, movies) {
-    return movies.filter(movie => {
+    this.setState({search: true})
+    const filterdMovies = movies.filter(movie => {
       return movie.title.toLowerCase().includes(title);
     });
+    this.setState({filterdMovies});
   }
 
   _displayView(view){
