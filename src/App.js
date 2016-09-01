@@ -55,7 +55,7 @@ export default class App extends Component {
   _filterByGenre(genre, movies) {
     this.setState({search: true})
     const filterdMovies = movies.filter(movie => {
-      return movie.genre.includes(genre);
+      return movie.genre.toLowerCase().includes(genre);
     });
     this.setState({filterdMovies});
   }
@@ -96,7 +96,7 @@ export default class App extends Component {
       return (
         <div>
           <SearchBar filter={this._filter.bind(this)}/>
-          <MovieList movies={movies} remove={this._removeMovie.bind(this)}/>;
+          <MovieList movies={movies} remove={this._removeMovie.bind(this)}/>
         </div>
       );
     }
