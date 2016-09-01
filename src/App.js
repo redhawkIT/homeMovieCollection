@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar';
 import AddMovie from './components/AddMovie';
 import MovieList from './components/MovieList';
 import {randomMovies} from './models/helpers';
+import _ from 'lodash';
 
 export default class App extends Component {
   constructor(props) {
@@ -11,12 +12,8 @@ export default class App extends Component {
     this.state = {
       movies: [],
       view: false,
-      filter: {
-        rating: null,
-        genere: null,
-        actors: [],
-        year: null
-      }
+      search: false,
+      filterdMovies: []
     };
   }
 
@@ -25,26 +22,37 @@ export default class App extends Component {
   }
 
   _toggleView() {
-    this.setState({view: !this.state.view})
+    this.setState({view: !this.state.view});
   }
 
-  _filterMovies(movies) {
-    const filter = this.state.filter;
-    const mapped = [];
-    for(const title in movies) {
-      mapped.push(movies[title]);
+  _filter(filter) {
+    const movies = this.state.movies;
+    const {title, rating, genre, actors, years} = filter;
+    if(title && title.length) {
+      this.setState({search: true})
     }
-    return movies
+    const filterdMovies = this._filterByTitle(title, movies);
+    this.setState({filterdMovies})
+  }
+
+  _filterByTitle(title, movies) {
+    return movies.filter(movie => {
+      return movie.title.toLowerCase().includes(title);
+    });
   }
 
   _displayView(view){
-    const movies = this.state.movies;
+    let movies = this.state.movies;
+    if(this.state.search) {
+      movies = this.state.filterdMovies;
+    }
+
     if(view) {
       return <AddMovie movies={movies} addMovie={this._addMovie.bind(this)} toggleView={this._toggleView.bind(this)}/>;
     } else {
       return (
         <div>
-          <SearchBar/>
+          <SearchBar filter={this._filter.bind(this)}/>
           <MovieList movies={movies}/>;
         </div>
       );
