@@ -18,7 +18,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    this.setState({movies: randomMovies(300)})
+    this.setState({movies: randomMovies(10)})
   }
 
   _toggleView() {
@@ -96,10 +96,22 @@ export default class App extends Component {
       return (
         <div>
           <SearchBar filter={this._filter.bind(this)}/>
-          <MovieList movies={movies}/>;
+          <MovieList movies={movies} remove={this._removeMovie.bind(this)}/>;
         </div>
       );
     }
+  }
+
+  _removeMovie(title) {
+    const movies = this.state.movies;
+    let index = null;
+    movies.forEach((movie, i) => {
+      if(movie.title == title) {
+        index = i;
+      }
+    })
+    movies.splice(index, 1);
+    this.setState({movies});
   }
 
   _addMovie(movie) {

@@ -5,7 +5,7 @@ export default class MovieList extends Component {
 
   _renderMovies(movies) {
     return movies.map((movie,i) => {
-      return <Movie key={i} movie={movie}/>
+      return <Movie key={i} movie={movie} remove={this.props.remove}/>
     })
   }
 

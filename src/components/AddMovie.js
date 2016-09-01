@@ -5,10 +5,10 @@ export default class AddMovie extends Component {
     super(props);
     this.state = {
       title: '',
-      rating: null,
-      genre: '',
-      actors: '',
-      year: null,
+      rating: "N/A",
+      genre: "N/A",
+      actors: [],
+      year: "N/A",
       errorMsg: null
     };
   }
@@ -23,7 +23,7 @@ export default class AddMovie extends Component {
       title: '',
       rating: "N/A",
       genre: "N/A",
-      actors: "N/A",
+      actors: [],
       year: "N/A",
       errorMsg: null
     });
