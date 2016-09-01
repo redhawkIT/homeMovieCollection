@@ -27,15 +27,15 @@ export default class App extends Component {
 
   _filter(filter, term) {
     const movies = this.state.movies;
-    if(filter == "Title" && term.length) {
+    if(filter == 'Title' && term.length) {
       this._filterByTitle(term.toLowerCase(), movies);
-    } else if (filter == "Year" && term.length) {
+    } else if (filter == 'Year' && term.length) {
       this._filterByYear(term.toString(), movies);
-    } else if (filter == "Rating" && term.length) {
+    } else if (filter == 'Rating' && term.length) {
       this._filterByRating(term.toString(), movies);
-    } else if (filter == "Genre" && term.length) {
+    } else if (filter == 'Genre' && term.length) {
       this._filterByGenre(term.toLowerCase(), movies);
-    } else if (filter == "Actors" && term.length) {
+    } else if (filter == 'Actors' && term.length) {
       this._filterByActors(term.toLowerCase(), movies);
     } else {
       this.setState({search: false})
@@ -115,6 +115,10 @@ export default class App extends Component {
   }
 
   _addMovie(movie) {
+    if(movie.actors.length) {
+      movie.actors = movie.actors.split(', ');
+    }
+
     this.setState({movies: this.state.movies.concat([movie])});
   }
 
@@ -122,9 +126,9 @@ export default class App extends Component {
     return (
       <div>
         <NavBar toggleView={this._toggleView.bind(this)}/>
-        <div className="container App">
-          <div className="row">
-            <div className="col-md-offset-2 col-md-8">
+        <div className='container App'>
+          <div className='row'>
+            <div className='col-md-offset-2 col-md-8'>
             {this._displayView(this.state.view)}
             </div>
           </div>

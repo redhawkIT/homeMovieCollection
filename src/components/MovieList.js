@@ -12,7 +12,7 @@ export default class MovieList extends Component {
   render() {
     const Movies = this._renderMovies(this.props.movies);
     return (
-      <div className="list-group MovieList">
+      <div className='list-group MovieList'>
         {Movies}
       </div>
     );
