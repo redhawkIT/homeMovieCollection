@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
 import AddMovie from './components/AddMovie';
 import MovieList from './components/MovieList';
+import {randomMovies} from './models/helpers';
 
 export default class App extends Component {
   constructor(props) {
@@ -20,14 +21,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    let movies = [{
-      year: 1999,
-      title: "Matrix",
-      genre: "science fiction",
-      actors: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss", "Hugo Weaving"],
-      rating: 8.7}]
-
-    this.setState({movies})
+    this.setState({movies: randomMovies(200)})
   }
 
   _toggleView() {
@@ -62,7 +56,6 @@ export default class App extends Component {
   }
 
   render() {
-    const movies = this._filterMovies(this.state.movies);
     return (
       <div>
         <NavBar toggleView={this._toggleView.bind(this)}/>
