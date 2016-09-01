@@ -13,8 +13,7 @@ export default class SearchBar extends Component {
   }
 
   _onInputChange(term) {
-    this.setState({title: term.toLowerCase()});
-    this.props.filter(this.state);
+    this.props.filter({title: term.toLowerCase()});
   }
 
   render() {

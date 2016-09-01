@@ -13,12 +13,17 @@ export default class App extends Component {
       movies: [],
       view: false,
       search: false,
-      filterdMovies: []
+      filterdMovies: [],
+      title: null,
+      rating: null,
+      genre: null,
+      actors: [],
+      year: null
     };
   }
 
   componentWillMount() {
-    this.setState({movies: randomMovies(200)})
+    this.setState({movies: randomMovies(300)})
   }
 
   _toggleView() {
@@ -26,9 +31,13 @@ export default class App extends Component {
   }
 
   _filter(filter) {
+    console.log("called")
+
     const movies = this.state.movies;
     const {title, rating, genre, actors, years} = filter;
+    console.log("title", title)
     if(title && title.length) {
+
       this.setState({search: true})
     }
     const filterdMovies = this._filterByTitle(title, movies);
