@@ -13,12 +13,7 @@ export default class App extends Component {
       movies: [],
       view: false,
       search: false,
-      filterdMovies: [],
-      title: null,
-      rating: null,
-      genre: null,
-      actors: [],
-      year: null
+      filterdMovies: []
     };
   }
 
@@ -32,19 +27,27 @@ export default class App extends Component {
 
   _filter(filter, term) {
     const movies = this.state.movies;
-    if(filter == "Title" && term.length) this._filterByTitle(term, movies);
-    if(filter == "Year" && term.length) this._filterByYear(term, movies);
-    if(filter == "Rating" && term.length) this._filterByRating(term, movies);
-    if(filter == "Genre" && term.length) this._filterByGenre(term, movies);
-    if(filter == "Actors" && term.length) this._filterByActors(term, movies);
+    if(filter == "Title" && term.length) {
+      this._filterByTitle(term.toLowerCase(), movies);
+    } else if (filter == "Year" && term.length) {
+      this._filterByYear(term.toString(), movies);
+    } else if (filter == "Rating" && term.length) {
+      this._filterByRating(term.toString(), movies);
+    } else if (filter == "Genre" && term.length) {
+      this._filterByGenre(term.toLowerCase(), movies);
+    } else if (filter == "Actors" && term.length) {
+      this._filterByActors(term.toLowerCase(), movies);
+    } else {
+      this.setState({search: false})
+    }
   }
 
   _filterByActors(name, movies) {
     this.setState({search: true})
     const filterdMovies = movies.filter(movie => {
       return movie.actors.filter(actor => {
-        return  actor.includes(name);
-      })
+        return actor.toLowerCase().includes(name);
+      }).length;
     });
     this.setState({filterdMovies});
   }
@@ -60,7 +63,7 @@ export default class App extends Component {
   _filterByRating(rating, movies) {
     this.setState({search: true})
     const filterdMovies = movies.filter(movie => {
-      return movie.rating = rating;
+      return movie.rating == rating;
     });
     this.setState({filterdMovies});
   }
@@ -68,7 +71,7 @@ export default class App extends Component {
   _filterByYear(year, movies) {
     this.setState({search: true})
     const filterdMovies = movies.filter(movie => {
-      return movie.year.toString().includes(year.toString());
+      return movie.year.toString().includes(year);
     });
     this.setState({filterdMovies});
   }
