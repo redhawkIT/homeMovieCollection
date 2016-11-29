@@ -1,0 +1,20 @@
+body {
+    padding-top: 70px;
+}
+
+#Movie-Title {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#Movie-Rating {
+    display: inline-block;
+    float: right;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.Movie-Button {
+    margin-left: 20px;
+}
